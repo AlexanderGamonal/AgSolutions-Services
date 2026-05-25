@@ -27,10 +27,7 @@ export default function ValueProposition() {
   return (
     <section className="py-20 bg-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div
-          ref={ref}
-          className="grid md:grid-cols-3 gap-8"
-        >
+        <div ref={ref} className="grid md:grid-cols-3 gap-8">
           {values.map((value, i) => (
             <div
               key={value.title}

@@ -6,7 +6,6 @@ export default function Hero() {
       id="hero"
       className="relative min-h-screen flex items-center justify-center overflow-hidden bg-secondary"
     >
-      {/* Background elements */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <div className="absolute -top-40 -right-40 w-96 h-96 bg-primary opacity-10 rounded-full blur-3xl" />
         <div className="absolute -bottom-40 -left-40 w-96 h-96 bg-accent opacity-10 rounded-full blur-3xl" />
@@ -22,7 +21,6 @@ export default function Hero() {
       </div>
 
       <div className="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center py-32">
-        {/* Logo */}
         <div className="flex items-center justify-center gap-3 mb-8">
           <div className="w-16 h-16 bg-primary rounded-2xl flex items-center justify-center shadow-xl shadow-blue-500/40">
             <svg className="w-9 h-9 text-white" fill="currentColor" viewBox="0 0 24 24">
@@ -35,13 +33,11 @@ export default function Hero() {
           </div>
         </div>
 
-        {/* Badge */}
         <div className="inline-flex items-center gap-2 bg-blue-500/10 border border-blue-500/30 rounded-full px-4 py-2 mb-8">
           <span className="w-2 h-2 bg-accent rounded-full animate-pulse" />
           <span className="text-blue-300 text-sm font-medium">Empresa tecnológica peruana</span>
         </div>
 
-        {/* Headline */}
         <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-white leading-tight mb-6 tracking-tight">
           Digitalizamos tu negocio{' '}
           <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-emerald-400">
@@ -49,13 +45,11 @@ export default function Hero() {
           </span>
         </h1>
 
-        {/* Subheadline */}
         <p className="text-gray-300 text-lg sm:text-xl max-w-3xl mx-auto mb-12 leading-relaxed">
           Apps web profesionales, 100% adaptables a tu marca y escalables con tu crecimiento.{' '}
           <span className="text-white font-semibold">Sin papeles, sin errores, sin complicaciones.</span>
         </p>
 
-        {/* CTAs */}
         <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
           <a
             href={WHATSAPP_URL}
@@ -79,7 +73,6 @@ export default function Hero() {
           </a>
         </div>
 
-        {/* Trust indicators */}
         <div className="mt-16 flex flex-wrap items-center justify-center gap-8">
           {[
             { value: '100%', label: 'Personalizable' },
@@ -94,7 +87,6 @@ export default function Hero() {
         </div>
       </div>
 
-      {/* Scroll indicator */}
       <div className="absolute bottom-8 left-1/2 -translate-x-1/2 animate-bounce">
         <svg className="w-6 h-6 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />

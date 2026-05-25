@@ -5,7 +5,6 @@ export default function Footer() {
     <footer className="bg-gray-950 text-gray-400 py-12">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex flex-col md:flex-row items-center justify-between gap-6 mb-8">
-          {/* Logo */}
           <a href="#hero" className="flex items-center gap-2">
             <div className="w-9 h-9 bg-primary rounded-lg flex items-center justify-center">
               <svg className="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 24 24">
@@ -15,7 +14,6 @@ export default function Footer() {
             <span className="text-white font-semibold text-lg">AG Solutions &amp; Services</span>
           </a>
 
-          {/* Links */}
           <div className="flex items-center gap-6 text-sm">
             <a
               href={WHATSAPP_URL}

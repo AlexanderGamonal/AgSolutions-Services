@@ -6,7 +6,6 @@ export default function CTAFinal() {
 
   return (
     <section id="contacto" className="py-28 bg-secondary relative overflow-hidden">
-      {/* Background decorations */}
       <div className="absolute inset-0 pointer-events-none">
         <div className="absolute -top-32 -right-32 w-80 h-80 bg-primary opacity-10 rounded-full blur-3xl" />
         <div className="absolute -bottom-32 -left-32 w-80 h-80 bg-accent opacity-10 rounded-full blur-3xl" />
