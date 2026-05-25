@@ -5,10 +5,13 @@ interface SolutionCard {
   icon: ReactNode
   name: string
   category: string
+  painPoint: string
   benefit: string
-  features: string[]
+  features: { title: string; detail: string }[]
+  idealFor: string[]
   demo: string
   gradient: string
+  accentColor: string
 }
 
 const solutions: SolutionCard[] = [
@@ -20,14 +23,26 @@ const solutions: SolutionCard[] = [
     ),
     name: 'VitalStock',
     category: 'Control de Inventario para Puntos de Venta',
+    painPoint: '¿Te ha pasado que un cliente te pide algo y no sabes si tienes stock? ¿O que descubres que se te agotó tu producto estrella solo cuando ya lo vendiste?',
     benefit: 'Nunca más pierdas ventas por no saber qué tienes en stock',
     features: [
-      'Control de stock en tiempo real desde tu celular',
-      'Ideal para ferias, tiendas y comercios',
-      'Adaptable a cualquier tipo de producto y marca',
+      {
+        title: 'Stock en tiempo real desde tu celular',
+        detail: 'Actualiza entradas y salidas al instante — sin ir al almacén a contar.',
+      },
+      {
+        title: 'Alertas de stock bajo',
+        detail: 'Te avisa antes de quedarte sin producto, para que compres a tiempo.',
+      },
+      {
+        title: 'Adaptable a cualquier producto',
+        detail: 'Ropa, alimentos, ferretería, lo que vendas — funciona sin límites.',
+      },
     ],
+    idealFor: ['Feriantes', 'Bodegueros', 'Tiendas pequeñas', 'Distribuidores'],
     demo: 'https://vitalstock.vercel.app',
     gradient: 'from-blue-600 to-blue-800',
+    accentColor: 'blue',
   },
   {
     icon: (
@@ -37,14 +52,26 @@ const solutions: SolutionCard[] = [
     ),
     name: 'Control HHEE',
     category: 'Verificador de Horas Extras',
+    painPoint: '¿Trabajas horas extras pero no estás seguro de si te están pagando lo que dice la ley? ¿Te da vergüenza reclamar porque no sabes cómo calcularlo?',
     benefit: 'Asegúrate de que te paguen exactamente lo que te deben',
     features: [
-      'Calcula tus horas extras según ley peruana',
-      'Registro por período con historial completo',
-      'Exporta a Google Sheets o CSV como evidencia',
+      {
+        title: 'Cálculo automático según ley peruana',
+        detail: 'Aplica los porcentajes correctos (25% y 35%) sin que tengas que saber la norma.',
+      },
+      {
+        title: 'Historial completo por período',
+        detail: 'Guarda semana a semana cuántas horas trabajaste de más y cuánto te corresponde.',
+      },
+      {
+        title: 'Exporta como evidencia',
+        detail: 'Descarga en Google Sheets o CSV para mostrar a RRHH o donde lo necesites.',
+      },
     ],
+    idealFor: ['Empleados de planilla', 'Trabajadores con turnos', 'Personal operativo', 'Cualquier dependiente'],
     demo: 'https://alexandergamonal.github.io/Control-HHEE/index.html',
     gradient: 'from-emerald-600 to-emerald-800',
+    accentColor: 'emerald',
   },
   {
     icon: (
@@ -54,14 +81,26 @@ const solutions: SolutionCard[] = [
     ),
     name: 'CheckList Digital',
     category: 'Auditorías y Mantenimiento sin Papel',
+    painPoint: '¿Tu equipo usa papeles que se pierden, se mojan o nadie puede leer después? ¿Pasas horas cada semana copiando información a Excel?',
     benefit: 'Elimina el papeleo — auditorías y checklists desde el celular',
     features: [
-      'Reemplaza planillas Excel y formularios impresos',
-      'Registro digital con fecha, hora y responsable',
-      'Disponible offline, funciona en campo',
+      {
+        title: 'Reemplaza papeles y Excel al instante',
+        detail: 'Tus inspecciones, rondas y revisiones, todo en el celular de cada responsable.',
+      },
+      {
+        title: 'Registro con fecha, hora y firma digital',
+        detail: 'Cada acción queda registrada automáticamente — sin que nadie pueda olvidar o alterar.',
+      },
+      {
+        title: 'Funciona sin internet (offline)',
+        detail: 'En almacenes, plantas o campo — registra igual y sincroniza cuando haya señal.',
+      },
     ],
+    idealFor: ['Supervisores de planta', 'Personal de mantenimiento', 'Encargados de tienda', 'Equipos de operaciones'],
     demo: 'https://check-list-preventivo.vercel.app',
     gradient: 'from-violet-600 to-violet-800',
+    accentColor: 'violet',
   },
   {
     icon: (
@@ -71,14 +110,26 @@ const solutions: SolutionCard[] = [
     ),
     name: 'Cotizador Automático',
     category: 'Presupuestos Profesionales al Instante',
+    painPoint: '¿Tardas demasiado haciendo presupuestos uno por uno en Word o papel? ¿A veces te equivocas en los precios o el resultado no se ve profesional?',
     benefit: 'Genera cotizaciones profesionales en segundos, sin errores',
     features: [
-      'Calcula precios automáticamente según tus productos/servicios',
-      'Presentación profesional lista para enviar al cliente',
-      'Adaptable a cualquier rubro comercial',
+      {
+        title: 'Precios calculados solos',
+        detail: 'Seleccionas los productos o servicios y el total sale automático — sin calculadora.',
+      },
+      {
+        title: 'Formato profesional listo para enviar',
+        detail: 'Tu cliente recibe una cotización ordenada y con tu marca, no una foto de papel.',
+      },
+      {
+        title: 'Adaptable a cualquier rubro',
+        detail: 'Construcción, tecnología, servicios, productos — configuras tus precios y listo.',
+      },
     ],
+    idealFor: ['Independientes y freelancers', 'Técnicos y maestros de obra', 'Vendedores por catálogo', 'Dueños de negocio'],
     demo: 'https://cotizador-automatico.vercel.app',
     gradient: 'from-orange-500 to-orange-700',
+    accentColor: 'orange',
   },
 ]
 
@@ -109,6 +160,7 @@ export default function Solutions() {
               }`}
               style={{ transitionDelay: `${i * 150}ms` }}
             >
+              {/* Header */}
               <div className={`bg-gradient-to-br ${solution.gradient} p-6 text-white`}>
                 <div className="flex items-start justify-between mb-4">
                   <div className="bg-white/20 backdrop-blur-sm rounded-xl p-3">
@@ -123,13 +175,22 @@ export default function Solutions() {
               </div>
 
               <div className="p-6 flex flex-col flex-1">
-                <p className="text-gray-800 font-semibold text-base mb-6 leading-snug">
-                  &ldquo;{solution.benefit}&rdquo;
+                {/* Pain point */}
+                <div className="bg-gray-50 border border-gray-100 rounded-xl p-4 mb-5">
+                  <p className="text-gray-500 text-sm italic leading-relaxed">
+                    {solution.painPoint}
+                  </p>
+                </div>
+
+                {/* Benefit */}
+                <p className="text-gray-800 font-bold text-base mb-5 leading-snug">
+                  ✅ {solution.benefit}
                 </p>
 
-                <ul className="space-y-3 mb-6 flex-1">
+                {/* Features */}
+                <ul className="space-y-4 mb-5 flex-1">
                   {solution.features.map((feature) => (
-                    <li key={feature} className="flex items-start gap-3">
+                    <li key={feature.title} className="flex items-start gap-3">
                       <svg
                         className="w-5 h-5 text-accent flex-shrink-0 mt-0.5"
                         fill="currentColor"
@@ -141,10 +202,28 @@ export default function Solutions() {
                           clipRule="evenodd"
                         />
                       </svg>
-                      <span className="text-gray-600 text-sm leading-relaxed">{feature}</span>
+                      <div>
+                        <span className="text-gray-800 text-sm font-semibold">{feature.title}:</span>{' '}
+                        <span className="text-gray-500 text-sm leading-relaxed">{feature.detail}</span>
+                      </div>
                     </li>
                   ))}
                 </ul>
+
+                {/* Ideal for */}
+                <div className="mb-6">
+                  <p className="text-xs font-semibold text-gray-400 uppercase tracking-wide mb-2">Ideal para</p>
+                  <div className="flex flex-wrap gap-2">
+                    {solution.idealFor.map((persona) => (
+                      <span
+                        key={persona}
+                        className="bg-blue-50 text-primary text-xs font-medium px-3 py-1 rounded-full border border-blue-100"
+                      >
+                        {persona}
+                      </span>
+                    ))}
+                  </div>
+                </div>
 
                 <a
                   href={solution.demo}
