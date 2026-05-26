@@ -25,7 +25,8 @@ export default function FormFillPage() {
           setForm(data as Form)
           const init: Record<string, string | string[]> = {}
           ;(data.fields as FormField[]).forEach(f => {
-            init[f.id] = f.type === 'checkbox' ? [] : ''
+            if (f.type === 'section') return
+            init[f.id] = (f.type === 'checkbox' || f.type === 'checkbox_group') ? [] : ''
           })
           setValues(init)
         } else {
@@ -56,7 +57,7 @@ export default function FormFillPage() {
     if (!form) return
 
     const missing = (form.fields as FormField[]).filter(f => {
-      if (!f.required) return false
+      if (f.type === 'section' || !f.required) return false
       const val = values[f.id]
       if (Array.isArray(val)) return val.length === 0
       return !val || String(val).trim() === ''
@@ -113,64 +114,97 @@ export default function FormFillPage() {
           )}
         </div>
 
-        <form onSubmit={handleSubmit} className="bg-gray-900 border border-gray-800 rounded-xl p-6 space-y-6">
-          {formFields.map(field => (
-            <div key={field.id}>
-              <label className="block text-sm text-gray-200 mb-1.5 font-medium">
-                {field.label}
-                {field.required && <span className="text-red-400 ml-1">*</span>}
-              </label>
+        <form onSubmit={handleSubmit} className="space-y-5">
+          {formFields.map(field => {
+            if (field.type === 'section') {
+              return (
+                <div key={field.id} className="pt-4 pb-1">
+                  <h2 className="text-white font-semibold text-base border-l-2 border-blue-500 pl-3">
+                    {field.label}
+                  </h2>
+                  {field.description && (
+                    <p className="text-gray-500 text-xs mt-1 pl-3">{field.description}</p>
+                  )}
+                </div>
+              )
+            }
 
-              {field.type === 'textarea' ? (
-                <textarea
-                  value={values[field.id] as string}
-                  onChange={e => setValue(field.id, e.target.value)}
-                  placeholder={field.placeholder}
-                  rows={4}
-                  required={field.required}
-                  className="w-full bg-gray-800 border border-gray-700 rounded-lg px-3 py-2.5 text-white text-sm focus:outline-none focus:border-blue-500 transition-colors resize-none"
-                />
-              ) : field.type === 'select' ? (
-                <select
-                  value={values[field.id] as string}
-                  onChange={e => setValue(field.id, e.target.value)}
-                  required={field.required}
-                  className="w-full bg-gray-800 border border-gray-700 rounded-lg px-3 py-2.5 text-white text-sm focus:outline-none focus:border-blue-500 transition-colors"
-                >
-                  <option value="">Seleccionar...</option>
-                  {(field.options || []).map((o, i) => (
-                    <option key={i} value={o}>{o}</option>
-                  ))}
-                </select>
-              ) : field.type === 'checkbox' ? (
-                <div className="space-y-2.5">
-                  {(field.options || []).map((o, i) => {
-                    const selected = (values[field.id] as string[]) || []
-                    return (
+            const isArrayType = field.type === 'checkbox' || field.type === 'checkbox_group'
+
+            return (
+              <div key={field.id} className="bg-gray-900 border border-gray-800 rounded-xl p-4">
+                <label className="block text-sm text-gray-200 mb-2 font-medium">
+                  {field.label}
+                  {field.required && <span className="text-red-400 ml-1">*</span>}
+                </label>
+
+                {field.type === 'textarea' ? (
+                  <textarea
+                    value={values[field.id] as string}
+                    onChange={e => setValue(field.id, e.target.value)}
+                    placeholder={field.placeholder}
+                    rows={3}
+                    required={field.required}
+                    className="w-full bg-gray-800 border border-gray-700 rounded-lg px-3 py-2.5 text-white text-sm focus:outline-none focus:border-blue-500 transition-colors resize-none"
+                  />
+                ) : field.type === 'select' ? (
+                  <select
+                    value={values[field.id] as string}
+                    onChange={e => setValue(field.id, e.target.value)}
+                    required={field.required}
+                    className="w-full bg-gray-800 border border-gray-700 rounded-lg px-3 py-2.5 text-white text-sm focus:outline-none focus:border-blue-500 transition-colors"
+                  >
+                    <option value="">Seleccionar...</option>
+                    {(field.options || []).map((o, i) => (
+                      <option key={i} value={o}>{o}</option>
+                    ))}
+                  </select>
+                ) : field.type === 'radio' ? (
+                  <div className="space-y-2">
+                    {(field.options || []).map((o, i) => (
                       <label key={i} className="flex items-center gap-3 cursor-pointer group">
                         <input
-                          type="checkbox"
-                          checked={selected.includes(o)}
-                          onChange={() => toggleCheckbox(field.id, o)}
+                          type="radio"
+                          name={field.id}
+                          value={o}
+                          checked={values[field.id] === o}
+                          onChange={() => setValue(field.id, o)}
                           className="w-4 h-4 accent-blue-600 shrink-0"
                         />
                         <span className="text-gray-300 text-sm group-hover:text-white transition-colors">{o}</span>
                       </label>
-                    )
-                  })}
-                </div>
-              ) : (
-                <input
-                  type={field.type}
-                  value={values[field.id] as string}
-                  onChange={e => setValue(field.id, e.target.value)}
-                  placeholder={field.placeholder}
-                  required={field.required}
-                  className="w-full bg-gray-800 border border-gray-700 rounded-lg px-3 py-2.5 text-white text-sm focus:outline-none focus:border-blue-500 transition-colors"
-                />
-              )}
-            </div>
-          ))}
+                    ))}
+                  </div>
+                ) : isArrayType ? (
+                  <div className="grid grid-cols-2 gap-2">
+                    {(field.options || []).map((o, i) => {
+                      const selected = (values[field.id] as string[]) || []
+                      return (
+                        <label key={i} className="flex items-center gap-2.5 cursor-pointer group">
+                          <input
+                            type="checkbox"
+                            checked={selected.includes(o)}
+                            onChange={() => toggleCheckbox(field.id, o)}
+                            className="w-4 h-4 accent-blue-600 shrink-0"
+                          />
+                          <span className="text-gray-300 text-sm group-hover:text-white transition-colors">{o}</span>
+                        </label>
+                      )
+                    })}
+                  </div>
+                ) : (
+                  <input
+                    type={field.type}
+                    value={values[field.id] as string}
+                    onChange={e => setValue(field.id, e.target.value)}
+                    placeholder={field.placeholder}
+                    required={field.required}
+                    className="w-full bg-gray-800 border border-gray-700 rounded-lg px-3 py-2.5 text-white text-sm focus:outline-none focus:border-blue-500 transition-colors"
+                  />
+                )}
+              </div>
+            )
+          })}
 
           {error && (
             <p className="text-red-400 text-sm bg-red-400/10 border border-red-400/20 rounded-lg p-3">{error}</p>
@@ -184,7 +218,7 @@ export default function FormFillPage() {
             {submitting ? 'Enviando...' : 'Enviar formulario'}
           </button>
 
-          <p className="text-center text-gray-600 text-xs">
+          <p className="text-center text-gray-600 text-xs pb-8">
             Tu información será usada para preparar una propuesta personalizada.
           </p>
         </form>
