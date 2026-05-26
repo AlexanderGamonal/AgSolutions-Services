@@ -1,4 +1,6 @@
-export type FieldType = 'text' | 'textarea' | 'select' | 'checkbox' | 'number'
+export type FieldType =
+  | 'text' | 'textarea' | 'select' | 'checkbox' | 'number'
+  | 'radio' | 'checkbox_group' | 'date' | 'email' | 'tel' | 'section'
 
 export interface FormField {
   id: string
@@ -7,6 +9,7 @@ export interface FormField {
   placeholder?: string
   required: boolean
   options?: string[]
+  description?: string
 }
 
 export interface Client {
