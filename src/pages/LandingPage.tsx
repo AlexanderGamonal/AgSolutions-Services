@@ -1,9 +1,10 @@
 import Navbar from '../components/Navbar'
 import Hero from '../components/Hero'
-import ValueProposition from '../components/ValueProposition'
-import Solutions from '../components/Solutions'
+import Problems from '../components/Problems'
+import Services from '../components/Services'
+import Cases from '../components/Cases'
 import HowItWorks from '../components/HowItWorks'
-import UseCases from '../components/UseCases'
+import FAQ from '../components/FAQ'
 import CTAFinal from '../components/CTAFinal'
 import Footer from '../components/Footer'
 import WhatsAppButton from '../components/WhatsAppButton'
@@ -13,10 +14,11 @@ export default function LandingPage() {
     <div className="min-h-screen">
       <Navbar />
       <Hero />
-      <ValueProposition />
-      <Solutions />
+      <Problems />
+      <Services />
+      <Cases />
       <HowItWorks />
-      <UseCases />
+      <FAQ />
       <CTAFinal />
       <Footer />
       <WhatsAppButton />
