@@ -2,9 +2,10 @@ import { useState, useEffect } from 'react'
 import { WHATSAPP_URL } from '../config'
 
 const links = [
-  { label: 'Inicio', href: '#hero' },
-  { label: 'Soluciones', href: '#soluciones' },
-  { label: 'Cómo funciona', href: '#como-funciona' },
+  { label: 'Servicios', href: '#servicios' },
+  { label: 'Casos', href: '#casos' },
+  { label: 'Cómo trabajamos', href: '#como-funciona' },
+  { label: 'Preguntas', href: '#preguntas' },
   { label: 'Contacto', href: '#contacto' },
 ]
 

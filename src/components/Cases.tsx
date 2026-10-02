@@ -1,5 +1,6 @@
 import type { ReactNode } from 'react'
 import { useScrollAnimation } from '../hooks/useScrollAnimation'
+import { whatsappLink } from '../config'
 
 interface SolutionCard {
   icon: ReactNode
@@ -10,6 +11,8 @@ interface SolutionCard {
   features: { title: string; detail: string }[]
   idealFor: string[]
   demo: string
+  /** Captura de la app en /public/casos (ej. '/casos/vitalstock.png'). Si no existe, se muestra el encabezado de color. */
+  image?: string
   gradient: string
   accentColor: string
 }
@@ -51,9 +54,9 @@ const solutions: SolutionCard[] = [
       </svg>
     ),
     name: 'Control HHEE',
-    category: 'Verificador de Horas Extras',
-    painPoint: '¿Trabajas horas extras pero no estás seguro de si te están pagando lo que dice la ley? ¿Te da vergüenza reclamar porque no sabes cómo calcularlo?',
-    benefit: 'Asegúrate de que te paguen exactamente lo que te deben',
+    category: 'Cálculo de Horas Extras según Ley',
+    painPoint: '¿Calculas las horas extras de tu personal a mano o en Excel? Un error en los porcentajes puede terminar en reclamos o multas.',
+    benefit: 'Horas extras calculadas según la ley peruana, con historial listo para planilla',
     features: [
       {
         title: 'Cálculo automático según ley peruana',
@@ -61,14 +64,14 @@ const solutions: SolutionCard[] = [
       },
       {
         title: 'Historial completo por período',
-        detail: 'Guarda semana a semana cuántas horas trabajaste de más y cuánto te corresponde.',
+        detail: 'Registro semana a semana de las horas extra y el monto que corresponde en cada período.',
       },
       {
         title: 'Exporta como evidencia',
-        detail: 'Descarga en Google Sheets o CSV para mostrar a RRHH o donde lo necesites.',
+        detail: 'Descarga en Google Sheets o CSV para planilla, RRHH o tu contador.',
       },
     ],
-    idealFor: ['Empleados de planilla', 'Trabajadores con turnos', 'Personal operativo', 'Cualquier dependiente'],
+    idealFor: ['Pymes con personal en planilla', 'Negocios con turnos', 'Encargados de RRHH', 'Contadores'],
     demo: 'https://alexandergamonal.github.io/Control-HHEE/index.html',
     gradient: 'from-emerald-600 to-emerald-800',
     accentColor: 'emerald',
@@ -133,21 +136,22 @@ const solutions: SolutionCard[] = [
   },
 ]
 
-export default function Solutions() {
+export default function Cases() {
   const { ref, isVisible } = useScrollAnimation()
 
   return (
-    <section id="soluciones" className="py-24 bg-gray-50">
+    <section id="casos" className="py-24 bg-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
           <span className="inline-block bg-blue-50 text-primary font-semibold text-sm px-4 py-2 rounded-full mb-4 border border-blue-100">
-            Soluciones listas para usar
+            Casos reales
           </span>
           <h2 className="text-3xl sm:text-4xl font-extrabold text-secondary mb-4">
-            Herramientas que ya funcionan
+            Automatizaciones que ya funcionan
           </h2>
           <p className="text-gray-500 text-lg max-w-2xl mx-auto">
-            Cada solución está probada en el mercado y se adapta 100% a tu negocio en días.
+            Estas apps están en línea y puedes probarlas ahora con datos de ejemplo. Cada una se adapta a tu
+            negocio, o partimos de ellas para construir lo que necesitas.
           </p>
         </div>
 
@@ -160,6 +164,15 @@ export default function Solutions() {
               }`}
               style={{ transitionDelay: `${i * 150}ms` }}
             >
+              {solution.image && (
+                <img
+                  src={solution.image}
+                  alt={`Captura de ${solution.name}`}
+                  loading="lazy"
+                  className="w-full aspect-video object-cover object-top border-b border-gray-100"
+                />
+              )}
+
               {/* Header */}
               <div className={`bg-gradient-to-br ${solution.gradient} p-6 text-white`}>
                 <div className="flex items-start justify-between mb-4">
@@ -167,7 +180,7 @@ export default function Solutions() {
                     {solution.icon}
                   </div>
                   <span className="text-xs font-semibold px-3 py-1.5 rounded-full bg-white/20 border border-white/30">
-                    Adaptable a tu negocio
+                    Demo en vivo
                   </span>
                 </div>
                 <h3 className="text-2xl font-bold">{solution.name}</h3>
@@ -176,6 +189,7 @@ export default function Solutions() {
 
               <div className="p-6 flex flex-col flex-1">
                 {/* Pain point */}
+                <p className="text-xs font-semibold text-gray-400 uppercase tracking-wide mb-2">El problema</p>
                 <div className="bg-gray-50 border border-gray-100 rounded-xl p-4 mb-5">
                   <p className="text-gray-500 text-sm italic leading-relaxed">
                     {solution.painPoint}
@@ -183,6 +197,7 @@ export default function Solutions() {
                 </div>
 
                 {/* Benefit */}
+                <p className="text-xs font-semibold text-gray-400 uppercase tracking-wide mb-2">La solución</p>
                 <p className="text-gray-800 font-bold text-base mb-5 leading-snug">
                   ✅ {solution.benefit}
                 </p>
@@ -225,27 +240,38 @@ export default function Solutions() {
                   </div>
                 </div>
 
-                <a
-                  href={solution.demo}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex items-center justify-center gap-2 border-2 border-primary text-primary hover:bg-primary hover:text-white font-semibold py-3 px-6 rounded-xl transition-all duration-200 group"
-                >
-                  <svg
-                    className="w-4 h-4 group-hover:scale-110 transition-transform"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
+                <div className="flex flex-col sm:flex-row gap-3">
+                  <a
+                    href={whatsappLink(`Hola AG Solutions, vi ${solution.name} y quiero algo así para mi negocio. Mi negocio es: `)}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex-1 text-center bg-primary hover:bg-blue-700 text-white font-semibold py-3 px-6 rounded-xl transition-all duration-200"
                   >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
-                    />
-                  </svg>
-                  Ver demo en vivo
-                </a>
+                    Quiero una igual
+                  </a>
+                  <a
+                    href={solution.demo}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex-1 flex items-center justify-center gap-2 border-2 border-primary text-primary hover:bg-primary hover:text-white font-semibold py-3 px-6 rounded-xl transition-all duration-200 group"
+                  >
+                    <svg
+                      className="w-4 h-4 group-hover:scale-110 transition-transform"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
+                      />
+                    </svg>
+                    Probar demo
+                  </a>
+                </div>
+                <p className="text-xs text-gray-400 text-center mt-3">La demo usa datos de ejemplo.</p>
               </div>
             </div>
           ))}

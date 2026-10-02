@@ -1,24 +1,24 @@
 import { useScrollAnimation } from '../hooks/useScrollAnimation'
-import { WHATSAPP_URL } from '../config'
+import { whatsappLink, DIAGNOSTIC_MESSAGE } from '../config'
 
 const steps = [
   {
     emoji: '💬',
-    title: 'Conversamos',
+    title: 'Diagnóstico gratis',
     description:
-      'Me cuentas tu problema o proceso a digitalizar. Sin tecnicismos, en tu idioma, sin compromiso.',
+      'En 20 minutos me cuentas cómo trabajas hoy y detectamos qué tarea te conviene automatizar primero.',
   },
   {
     emoji: '🎨',
-    title: 'Adaptamos',
+    title: 'Propuesta en 24h',
     description:
-      'Personalizamos la solución con tu marca, colores y datos reales de tu negocio.',
+      'Te enviamos qué haremos, en cuánto tiempo y a qué precio. Sin letra pequeña.',
   },
   {
     emoji: '🚀',
     title: 'Lanzamos',
     description:
-      'Tu app lista y funcionando en pocos días. Con capacitación y soporte incluido.',
+      'Construimos con tu marca y tus datos reales, te capacitamos y te acompañamos después de entregar.',
   },
 ]
 
@@ -30,13 +30,13 @@ export default function HowItWorks() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
           <span className="inline-block bg-emerald-50 text-accent font-semibold text-sm px-4 py-2 rounded-full mb-4 border border-emerald-100">
-            Proceso simple
+            Cómo trabajamos
           </span>
           <h2 className="text-3xl sm:text-4xl font-extrabold text-secondary mb-4">
             ¿Cómo funciona?
           </h2>
           <p className="text-gray-500 text-lg max-w-2xl mx-auto">
-            Sin reuniones interminables ni contratos complicados. Tres pasos y listo.
+            Sin reuniones interminables ni contratos complicados. Tres pasos y tu negocio empieza a ahorrar tiempo.
           </p>
         </div>
 
@@ -63,12 +63,12 @@ export default function HowItWorks() {
 
         <div className="text-center">
           <a
-            href={WHATSAPP_URL}
+            href={whatsappLink(DIAGNOSTIC_MESSAGE)}
             target="_blank"
             rel="noopener noreferrer"
             className="inline-flex items-center gap-3 bg-accent hover:bg-emerald-600 text-white font-bold px-8 py-4 rounded-xl text-lg transition-all duration-200 shadow-lg shadow-emerald-500/20 hover:-translate-y-0.5"
           >
-            Empezar ahora
+            Agendar diagnóstico gratis
             <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
             </svg>
